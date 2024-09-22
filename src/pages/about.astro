@@ -1,0 +1,80 @@
+---
+import About from "../components/About"
+import "../css/about.css"
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ismayeel - About</title>
+</head>
+<body>
+  <div class="back"></div>
+  <h1>Hi im Ismayeel!</h1>
+  <About />
+</body>
+  <script>
+    const backgrounds: string[] = [
+  'aurora-sky',
+  'second-image'  // Replace with a class name for your second image
+];
+
+let currentIndex = 0;
+
+function changeBackground() {
+  const backElement = document.querySelector('.back');
+  
+  if (!backElement) {
+    console.error("Couldn't find element with class 'back'");
+    return;
+  }
+
+  // Remove all background classes
+  backgrounds.forEach(bg => backElement.classList.remove(bg));
+
+  // Add the next background class
+  currentIndex = (currentIndex + 1) % backgrounds.length;
+      let back = backgrounds[currentIndex] ?? '';
+  backElement.classList.add(back);
+
+  console.log(`Changed background to: ${backgrounds[currentIndex]}`);
+}
+
+// Initial setup
+const backElement = document.querySelector('.back');
+if (backElement) {
+  // Set initial background
+      let back = backgrounds[currentIndex] ?? '';
+  backElement.classList.add(back);
+  
+  // Change background every 5 seconds
+  const intervalId = setInterval(changeBackground, 5000);
+
+  // Optional: Stop the interval if the page is hidden to save resources
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      clearInterval(intervalId);
+    } else {
+      setInterval(changeBackground, 5000);
+    }
+  });
+} else {
+  console.error("Couldn't find element with class 'back'. Background won't change.");
+}
+        const originalTitle = document.title;
+        const awayTitle = "Get back here!";
+        
+        // Detect when the user switches tabs (visibility change event)
+        document.addEventListener("visibilitychange", function () {
+            if (document.hidden) {
+                // If the page is hidden (user switches tabs), change the title
+                document.title = awayTitle;
+            } else {
+                // If the user returns to the tab, restore the original title
+                document.title = originalTitle;
+            }
+        });
+  </script>
+</html>
